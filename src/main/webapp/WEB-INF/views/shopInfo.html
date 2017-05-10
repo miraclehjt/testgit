@@ -1,0 +1,206 @@
+<#include "allshare/ciglib.html"> 
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,height=device-height, user-scalable=no,initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <title>商家详情</title>
+    <link rel="stylesheet" href="${base}/css/oldstyle.css">
+    <link rel="stylesheet" href="${base}/css/More.css">
+    <link rel="stylesheet" href="${base}/css/Up.css">
+    <link rel="stylesheet" href="${base}/css/jsdaima.css" type="text/css" />
+    <script type="text/javascript" src="${base}/js/jquery-1.12.1.js"></script>
+    <script type="text/javascript" src="${base}/js/srcolltop.js"></script>
+</head>
+<body>
+<#assign dtl=shopDetail.shop />
+<div class="up"><a href="${base}/home/index"><img src="${base}/img/up.png" alt="返回上一层"></a></div>
+<div class="share"><a href=""><img src="${base}/img/share.png" alt="分享"></a></div>
+<div class="container">
+    <header>
+        <div id="turn" class="turn">
+            <div class="turn-loading"><img src="${base}/img/loading_comment.gif" alt=""/></div>
+            <ul class="turn-pic">
+                <li><a href="#"><img src="${base}/img/1.jpg" title="" alt="" /></a></li>
+                <li><a href="#"><img src="${base}/img/2.jpg" title="" alt="" /></a></li>
+                <li><a href="#"><img src="${base}/img/3.jpg" title="" alt="" /></a></li>
+                <li><a href="#"><img src="${base}/img/4.jpg" title="" alt="" /></a></li>
+                <li><a href="#"><img src="${dtl.shopimgpath}" title="" alt="" /></a></li>
+            </ul>
+        </div>
+        <script type="text/javascript" src="${base}/js/jsdaima.js"></script>
+    </header>
+<section>
+	
+    <div class="t_container">
+        <p class="p_service"><img src="${base}/img/shangjia.png" alt="" style="width: 10px;">&nbsp;商品由<span>【${dtl.shopname}】</span>提供，并提供送货上门服务!</p>
+        <p class="p_detail">【${dtl.shopname}】</p>
+        <#if dtl.isexcellent = 1>
+        <p class="p_count">--优质商家--</p>
+        </#if>
+        <p class="p_time"><span>商家名称：</span>${dtl.shopname}</p>
+        <p class="p_address"><span>商家类别：</span>中餐${dtl.shoptype}</p>
+        <p class="p_address"><span>商家评价：</span>${dtl.shopevaluate}颗星</p>
+        <p class="p_address"><span>起送价格：</span>￥${dtl.minmoney}元</p>
+        <p class="p_time"><span>配送时间：</span>&nbsp;9:00-18:00&nbsp;${dtl.sendintime}</p>
+        <p class="p_time"><span>送达时间：</span>&nbsp;${dtl.sendintime}</p>
+        <p class="p_address"><span>配送费：</span>&nbsp;￥${dtl.sendmoney}元&nbsp;</p>
+        <#if dtl.iscoupon = 1>
+        <p class="p_time"><span>是否支持优惠包：</span>&nbsp;是</p>
+        <#else>
+        <p class="p_time"><span>是否支持优惠包：</span>&nbsp;否</p>
+        </#if>
+        <p class="p_address">地址：${dtl.shopaddr}</p>
+        <p class="p_address"><span>营业状态：</span>营业中 ${dtl.shopstatus}</p>
+        <p class="p_phone">电话：${dtl.shopmphone}<span></span></p>
+        <p class="p_address">商家简介：${dtl.shopdesc}</p>
+    </div>
+    <div class="t_warn">
+        <p class="p_warn"><img src="${base}/img/guize.png" alt="" style="width: 12px;float:left;"><span style="margin-left:6px;">温馨提示</span></p>
+        <p class="p_payoff">1、请提前30分钟下单，以免影响您正常用餐.</p>
+        <p class="p_payoff">2、订单提交后，配送中的订单无法取消</p>
+        <p class="p_payoff">3、如有疑问请联系商家咨询</p>
+        
+    </div>
+    
+    <div class="t_remark">
+        <p class="p_remark"><img src="${base}/img/xiangqing.png" alt="" style="width: 15px;float:left;"><span style="margin-left:6px;">商品信息</span></p>
+        
+        <#if goodsList ??>
+			<div class="allsp">
+        	<#list goodsList as glist>
+		        <#assign goodscate = glist.goodscate>
+		        <#assign goods = glist.goodslist>
+		        
+		        <#if goods ??>
+			 		<#if (goods.rows?size>0)>
+				        <#list goods.rows as g>
+				        <figure>
+				            <a href="${base}/home/goodsDetail?goodsId=${g.goodsid}&goodsCateId=${g.goodscategoryid}"><img src="${base}/img/u67.png" alt="商品" class="xqtp"/></a>
+				            <p>全部商品</p>
+				            <div class="info">
+				                <em class="sat">￥46</em>
+				                <a href="spxq.html"><img src="${base}/img/u20.png" alt="购物车" style="width: 38px;height: 35px" align="right"/></a>
+				            </div>
+				        </figure>
+				        </#list>
+				    <#else>
+				   <!--  <div class="xlgd">
+			            <p>暂无商品信息<a href="javascript:;"><i></i></a></p>
+			        </div> -->
+			        </#if>
+			        
+			    <#else>
+				    <div class="xlgd">
+			            <p>暂无商品信息<a href="javascript:;"><i></i></a></p>
+			        </div>   
+		        </#if>
+	        </#list>
+	        <div style="clear: both"></div>
+	        </div>
+        <#else>
+        <div class="allsp">
+        <p>暂无商品信息<a href="javascript:;"><i></i></a></p>
+        <div style="clear: both"></div>
+        </div>
+        </#if>
+         <div class="allsp">
+         <figure>
+            <a href="spxq.html"><img src="${base}/img/u67.png" alt="商品" class="xqtp"/></a>
+            <p>全部商品</p>
+            <div class="info">
+                <em class="sat">￥46</em>
+                <a href="spxq.html"><img src="${base}/img/u20.png" alt="购物车" style="width: 35px;height: 35px" align="right"/></a>
+            </div>
+        </figure>
+        <figure>
+            <a href="spxq.html"><img src="${base}/img/u67.png" alt="商品" class="xqtp"/></a>
+            <p>全部商品</p>
+            <div class="info">
+                <em class="sat">￥46</em>
+                <a href="spxq.html"><img src="${base}/img/u20.png" alt="购物车" style="width: 35px;height: 35px" align="right"/></a>
+            </div>
+        </figure>
+        <div style="clear: both"></div>
+        </div>
+        <!--<figure>
+            <a href="spxq.html"><img src="${base}/img/u67.png" alt="商品" class="xqtp"/></a>
+            <p>全部商品</p>
+            <div class="info">
+                <em class="sat">￥46</em>
+                <a href="spxq.html"><img src="${base}/img/u20.png" alt="购物车" style="width: 35px;height: 35px" align="right"/></a>
+            </div>
+        </figure>
+        <figure>
+            <a href="spxq.html"><img src="${base}/img/u67.png" alt="商品" class="xqtp"/></a>
+            <p>全部商品</p>
+            <div class="info">
+                <em class="sat">￥46</em>
+                <a href="spxq.html"><img src="${base}/img/u20.png" alt="购物车" style="width: 35px;height: 35px" align="right"/></a>
+            </div>
+        </figure>
+        <figure>
+            <a href="spxq.html"><img src="${base}/img/u67.png" alt="商品" class="xqtp"/></a>
+            <p>全部商品</p>
+            <div class="info">
+                <em class="sat">￥46</em>
+                <a href="spxq.html"><img src="${base}/img/u20.png" alt="购物车" style="width: 35px;height: 35px" align="right"/></a>
+            </div>
+        </figure>
+        <figure>
+            <a href="spxq.html"><img src="${base}/img/u67.png" alt="商品" class="xqtp"/></a>
+            <p>全部商品</p>
+            <div class="info">
+                <em class="sat">￥46</em>
+                <a href="spxq.html"><img src="${base}/img/u20.png" alt="购物车" style="width: 35px;height: 35px" align="right"/></a>
+            </div>
+        </figure>
+        <figure>
+            <a href="spxq.html"><img src="${base}/img/u67.png" alt="商品" class="xqtp"/></a>
+            <p>全部商品</p>
+            <div class="info">
+                <em class="sat">￥46</em>
+                <a href="spxq.html"><img src="${base}/img/u20.png" alt="购物车" style="width: 35px;height: 35px" align="right"/></a>
+            </div>
+        </figure>
+        <figure>
+            <a href="spxq.html"><img src="${base}/img/u67.png" alt="商品" class="xqtp"/></a>
+            <p>全部商品</p>
+            <div class="info">
+                <em class="sat">￥46</em>
+                <a href="spxq.html"><img src="${base}/img/u20.png" alt="购物车" style="width: 35px;height: 35px" align="right"/></a>
+            </div>
+        </figure>
+        <figure>
+            <a href="spxq.html"><img src="${base}/img/u67.png" alt="商品" class="xqtp"/></a>
+            <p>全部商品</p>
+            <div class="info">
+                <em class="sat">￥46</em>
+                <a href="spxq.html"><img src="${base}/img/u20.png" alt="购物车" style="width: 35px;height: 35px" align="right"/></a>
+            </div>
+        </figure>
+        <div style="clear: both"></div>
+    </div> -->
+      <div class="xlgd">
+            <p>加载更多<a href="javascript:;"><i></i></a></p>
+        </div>
+         <div class="zshlogo">
+            <a href="#"><img src="${base}/img/u63.png" alt="外卖网" style="max-width: 60px"/></a>
+            <p style="color: #b2b2b2">外卖网提供技术支持</p>
+        </div>
+    </div>
+</section>
+    <footer>
+        <div class="footer">
+            <p>没有更多了</p>
+        </div>
+    </footer>
+   <div class="wx_nav" id="wx_nav">
+           <a href="${base}/home/index" class="nav_index" id="nav_index">首页</a>
+           <a href="${base}/shopcart/info" class="nav_shopcart" id="nav_shopcart">购物车</a>
+           <a href="${base}/order/orderList" class="nav_me on" id="nav_me on">订单</a>
+		</div>
+    <div class="actGotop"><a href="javascript:;" title="返回顶部"></a> <img src="${base}/img/fanhui.png" alt=""></div>
+</div>
+</body>
+</html>

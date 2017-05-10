@@ -1,0 +1,85 @@
+<#include "allshare/ciglib.html"> 
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,height=device-height, user-scalable=no,initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <title>商品详情</title>
+    <link rel="stylesheet" href="${base}/css/spxq.css"/>
+    <link rel="stylesheet" type="text/css" href="${base}/css/swipe.css">
+   	<script type="text/javascript" src="${base}/js/touch.js"></script>
+</head>
+<body>
+<div class="body">
+    <div class="tour">
+        <a href="${base}/shop/info" class="tour1"><img src="${base}/img/back.png" alt="" style="height: 26px;width: 20px"></a>
+        <p>商品详情</p>
+        <a href="${base}/shopcart/info" class="tour2"><img src="${base}/img/u65.png" alt="" style="width: 35px;height: 35px"></a>
+    </div>
+    <#if (goodsList?size = 1)>
+    <figure>
+        <div class="addWrap">
+            <div class="swipe" id="mySwipe">
+                <div class="swipe-wrap">
+                    <div><a href="javascript:;"><img class="img-responsive" src="${base}/img/u67.png"/></a></div>
+                    <div><a href="javascript:;"><img class="img-responsive" src="${base}/img/u67.png"/></a></div>
+                    <div><a href="javascript:;"><img class="img-responsive" src="${base}/img/u67.png"/></a></div>
+                </div>
+            </div>
+            <ul id="position">
+                <li class="cur"></li>
+                <li class=""></li>
+                <li class=""></li>
+            </ul>
+        </div>
+        <!-- 轮播 -->
+        <script src="${base}/js/swipe.js"></script>
+        <script type="text/javascript">
+            var bullets = document.getElementById('position').getElementsByTagName('li');
+            var banner = Swipe(document.getElementById('mySwipe'), {
+                auto: 3000,
+                continuous: true,
+                disableScroll:false,
+                callback: function(pos) {
+                    var i = bullets.length;
+                    while (i--) {
+                        bullets[i].className = ' ';
+                    }
+                    bullets[pos].className = 'cur';
+                }
+            });
+        </script>
+        <p>【精品粉丝】</p>
+        <div class="info">
+        <em class="sat">￥100</em>
+            <a href="shopping.html"><button type="button" class="btn">加入购物车</button></a>
+        </div>
+    </figure>
+    <hr/>
+    <div class="sjxx">
+        <p class="p_remark"><img src="${base}/img/xiangqing.png" alt="" style="float:left;margin-left:4%;width: 15px;">&nbsp;商品信息</p>
+        <p class="p_address"><span>商品名称：</span>精品粉丝</p>
+        <p class="p_address">
+        	<span style="float:left;">商品价格：</span>
+        	<span style="color:red;font-size: 1.5rem;">现价￥111</span>
+        	<span style="color:darkgray;text-decoration:line-through;font-size: 1rem;">原价￥200</span>
+        </p>
+        <p class="p_time"><span>商品状态：</span>热销中</p>
+        <p class="p_address"><span>商品类别：</span>10元套餐</p>
+        <p class="p_address"><span>打包费：</span>￥12.0元</p>
+         <p class="p_address"><span>商品评价：</span>5颗星</p>
+    </div>
+    </#if>
+    <hr/>
+     <div class="zshlogo">
+            <a href="#"><img src="${base}/img/u63.png" alt="外卖网" style="max-width: 60px"/></a>
+            <p style="color: #b2b2b2">外卖网提供技术支持</p>
+        </div>
+   <div class="wx_nav" id="wx_nav">
+           <a href="${base}/home/index" class="nav_index" id="nav_index">首页</a>
+           <a href="${base}/shopcart/info" class="nav_shopcart" id="nav_shopcart">购物车</a>
+           <a href="${base}/order/orderList" class="nav_me on" id="nav_me on">订单</a>
+		</div>
+    </div>
+</body>
+</html>

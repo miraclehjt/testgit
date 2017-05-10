@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="
+      http://www.springframework.org/schema/beans
+      http://www.springframework.org/schema/beans/spring-beans.xsd
+      http://www.springframework.org/schema/context
+      http://www.springframework.org/schema/context/spring-context.xsd
+      http://www.springframework.org/schema/mvc
+      http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+    <!-- 开启controller注解支持 -->
+    <!-- use-default-filters="false" 只扫描指定的注解 -->
+    <context:component-scan base-package="oom.controller" use-default-filters="false">
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+
+     <!-- 默认的注解映射的支持 -->
+    <mvc:annotation-driven>
+        <mvc:message-converters>
+            <bean class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter">
+                <property name="supportedMediaTypes">
+                    <list>
+                        <value>text/html;charset=UTF-8</value><!-- 避免IE出现下载JSON文件的情况 -->
+                        <value>application/json;charset=UTF-8</value>
+                    </list>
+                </property>
+                <property name="features">
+                    <list>
+                        <!-- <value>WriteMapNullValue</value> -->
+                        <value>QuoteFieldNames</value>
+                        <value>WriteDateUseDateFormat</value>
+                    </list>
+                </property>
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+    
+    <mvc:interceptors>
+    	<mvc:interceptor>
+    		<mvc:mapping path="/order/**"/>
+    		<mvc:mapping path="/address/**"/>
+    		<mvc:exclude-mapping path="/login/**"/>
+    		<mvc:exclude-mapping path="/home/index"/>
+    		<mvc:exclude-mapping path="/shopcart/info"/>
+    		<mvc:exclude-mapping path="/shop/info"/>
+    		<bean class="oom.core.SecurityWebInterceptor">
+    		</bean>
+    	</mvc:interceptor>
+    </mvc:interceptors>
+
+    <!-- 如果当前请求为“/”时，则转发到“/home/hello” -->
+    <mvc:view-controller path="/" view-name="forward:/home/index"/>
+
+    <!-- 静态资源映射 -->
+    <mvc:resources mapping="/js/**" location="/js/" />
+    <mvc:resources mapping="/css/**" location="/css/" />
+    <mvc:resources mapping="/img/**" location="/img/" />
+
+    <!-- 当上面要访问的静态资源不包括在上面的配置中时，则根据此配置来访问 -->
+    <mvc:default-servlet-handler/>
+
+    <!-- ===================================================== -->
+    <!-- ViewResolver For FreeMarker -->
+    <!-- ===================================================== -->
+
+    <!-- 定义FreeMarker视图解析器与属性配置 -->
+    <bean id="viewResolver"
+          class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
+        <property name="cache" value="true" />
+        <property name="prefix" value="" />
+        <property name="suffix" value=".html" />
+        <property name="viewClass"
+                  value="org.springframework.web.servlet.view.freemarker.FreeMarkerView" />
+        <property name="exposeRequestAttributes" value="true" />
+    	<property name="exposeSessionAttributes" value="true" />
+    	<property name="exposeSpringMacroHelpers" value="true" />
+    	<property name="requestContextAttribute" value="request" />
+        <property name="contentType" value="text/html;charset=UTF-8" />
+    </bean>
+
+    <bean id="freemarkerConfig"
+          class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+        <property name="templateLoaderPath" value="/WEB-INF/views"/>
+        <property name="freemarkerSettings">
+            <props>
+                <prop key="template_update_delay">5</prop>
+                <prop key="defaultEncoding">UTF-8</prop>
+                <prop key="url_escaping_charset">UTF-8</prop>
+                <prop key="locale">zh_CN</prop>
+                <prop key="boolean_format">true,false</prop>
+                <prop key="datetime_format">yyyy-MM-dd HH:mm:ss</prop>
+                <prop key="time_format">HH:mm:ss</prop>
+                <prop key="number_format">0.######</prop>
+                <prop key="whitespace_stripping">true</prop>
+            </props>
+        </property>
+    </bean>
+
+</beans>
